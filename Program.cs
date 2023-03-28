@@ -1,6 +1,56 @@
-﻿void main()
-{
+﻿main();
 
+void main()
+{
+    Console.Clear();
+
+    int strMaxLength = 3;
+
+    string[] strArray = new string[ReadInt("number of strings in the array")];
+
+    for (int i = 0; i < strArray.Length; i++)
+    {
+        System.Console.Write($"Enter string {i}: ");
+        strArray[i] = Console.ReadLine();
+    }
+
+    System.Console.WriteLine();
+
+    string[] shortStrArray = GetShortStrings(strArray, strMaxLength);
+
+    if (shortStrArray.Length > 0)
+        System.Console.WriteLine($"Array with strings shorter than or equal to {strMaxLength} symbols:"
+                                + Environment.NewLine 
+                                + ArrayToString(shortStrArray, ", ", true));
+    else
+        System.Console.WriteLine($"There are no strings with the length less than or equal to {strMaxLength} in the array.");
+
+}
+
+/// <summary>
+/// Selects elements of strArray whose length is less than or equal to strMaxLength 
+/// </summary>
+/// <param name="strArray">Array for search</param>
+/// <param name="strMaxLength">Maximum length of the element to be selected</param>
+/// <returns>New array of stirngs</returns>
+string[] GetShortStrings(string[] strArray, int strMaxLength)
+{
+    int[] indexArrary = new int[strArray.Length];
+    int count = 0;
+
+    for (int i = 0; i < strArray.Length; i++)
+        if (strArray[i].Length <= strMaxLength)
+        {
+            indexArrary[count] = i;
+            count++;
+        }
+
+    string[] resArray = new string[count];
+
+    for (int i = 0; i < count; i++)
+        resArray[i] = strArray[indexArrary[i]];
+
+    return resArray;
 }
 
 #region Auxiliary methods
